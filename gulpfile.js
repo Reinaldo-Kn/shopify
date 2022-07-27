@@ -1,20 +1,17 @@
-const gulp = require('gulp');
-const autoprefixer = require('gulp-autoprefixer');
-const sass = require('gulp-scss')(require('scss'));
-const concat = require('gulp-concat');
-const replace = require('gulp-replace');
+                                                                                             
+var gulp = require('gulp');
+var sass = require('gulp-sass')(require('sass'));
+var replace = require('gulp-replace');
+var autoprefixer = require('gulp-autoprefixer');
+var concat = require('gulp-concat');
 
-scss.compiler = require('node-scss');
-
-gulp.task("scss",compilaScss);
-function compilaScss() {
-    return gulp
-	.src('theme.scss.liquid')
-    .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
-		.pipe(gulp.dest('dist'))
-        .pipe(autoprefixer())
-        .pipe(concat('style.css.liquid'))
-        .pipe(replace('"{{', '{{'))
-        .pipe(replace('}}"', '}}'))
-        .pipe(gulp.dest(''))
-};
+gulp.task('compila', function() {
+        return gulp.src('./src/teste.scss') // acessa a pasta src e pega o arquivo teste.scss
+            
+                .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
+                .pipe(autoprefixer())
+                .pipe(concat('style.css.liquid')) // salva o arquivo novo compilado como style.css.liquid
+                .pipe(replace('"{{', '{{'))
+                .pipe(replace('}}"', '}}'))               
+                .pipe(gulp.dest('./src/')); // salva o arquivo novo em src
+});
